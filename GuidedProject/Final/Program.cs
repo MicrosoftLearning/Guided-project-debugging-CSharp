@@ -115,15 +115,10 @@ static void LoadTillEachMorning(int[,] registerDailyStartingCash, int[] cashTill
 
 static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int fives = 0, int ones = 0)
 {
-    // cashTill[3] += twenties;
-    // cashTill[2] += tens;
-    // cashTill[1] += fives;
-    // cashTill[0] += ones;
-
-    int availableTwenties = cashTill[3] += twenties;
-    int availableTens = cashTill[2] += tens;
-    int availableFives = cashTill[1] += fives;
-    int availableOnes = cashTill[0] += ones;
+    cashTill[3] += twenties;
+    cashTill[2] += tens;
+    cashTill[1] += fives;
+    cashTill[0] += ones;
 
     int amountPaid = twenties * 20 + tens * 10 + fives * 5 + ones;
     int changeNeeded = amountPaid - cost;
@@ -136,7 +131,6 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
     while ((changeNeeded > 19) && (cashTill[3] > 0))
     {
         cashTill[3]--;
-        // availableTwenties--;
         changeNeeded -= 20;
         Console.WriteLine("\t A twenty");
     }
@@ -144,7 +138,6 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
     while ((changeNeeded > 9) && (cashTill[2] > 0))
     {
         cashTill[2]--;
-        // availableTens--;
         changeNeeded -= 10;
         Console.WriteLine("\t A ten");
     }
@@ -152,7 +145,6 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
     while ((changeNeeded > 4) && (cashTill[1] > 0))
     {
         cashTill[1]--;
-        // availableFives--;
         changeNeeded -= 5;
         Console.WriteLine("\t A five");
     }
@@ -160,18 +152,12 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
     while ((changeNeeded > 0) && (cashTill[0] > 0))
     {
         cashTill[0]--;
-        // availableOnes--;
         changeNeeded -= 1;
         Console.WriteLine("\t A one");
     }
 
     if (changeNeeded > 0)
         throw new InvalidOperationException("Can't make change. Do you have anything smaller?");
-
-    cashTill[0] = availableOnes;
-    cashTill[1] = availableFives;
-    cashTill[2] = availableTens;
-    cashTill[3] = availableTwenties;
 
 }
 
